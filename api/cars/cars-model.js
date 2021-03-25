@@ -10,15 +10,16 @@ function getAll() {
   
   async function insert(car) {
     const [id] = await db('cars').insert(car);
-    return getById(id); // not necessary with postgres
+    return getById(id);
   };
   
   async function update(id, changes) {
     return null
   };
   
-  function remove(id) {
-    return null
+  async function remove(id) {
+    const data = await db('cars').where({ id }).delete();
+    return data; // output will be 1 if success, 0 if fail
   };
 
   module.exports = {
