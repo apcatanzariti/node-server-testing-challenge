@@ -43,6 +43,14 @@ describe('testing adding a car to the database', () => {
 
             expect(res.body).toMatchObject({ id: 5, make: 'Honda', model: 'Accord' });
         });
+
+        it('returns the correct status code', async () => {
+            const res = await request(server)
+            .post('/cars')
+            .send({ make: 'Honda', model: 'Accord' });
+
+            expect(res.status).toEqual(200);
+        });
     });
 });
 
@@ -68,6 +76,12 @@ describe('testing removing a car from the database', () => {
             const res = await request(server).delete('/cars/7');
 
             expect(res.body).toEqual(0);
+        });
+
+        it('returns the correct status code on delete', async () => {
+            const res = await request(server).delete('/cars/4');
+
+            expect(res.status).toEqual(200);
         });
     });
 });
